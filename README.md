@@ -1,32 +1,9 @@
-<p align="center">
-    <a href="http://kitura.io/">
-        <img src="https://landscape.cncf.io/logos/ibm-member.svg" height="100" alt="IBM Cloud">
-    </a>
-</p>
+# AssetLift
 
-<p align="center">
-    <a href="https://cloud.ibm.com">
-    <img src="https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg" alt="IBM Cloud">
-    </a>
-    <img src="https://img.shields.io/badge/platform-node-lightgrey.svg?style=flat" alt="platform">
-    <img src="https://img.shields.io/badge/license-Apache2-blue.svg?style=flat" alt="Apache 2">
-</p>
-
-# Carbon React with Node.js
-
-React is a popular framework for creating user interfaces in modular components. In this sample application, you will create a web application using Express and React to serve web pages in Node.js, complete with standard best practices, including a health check and application metric monitoring.
-
-This app contains an opinionated set of components for modern web development, including:
-
-* [React](https://facebook.github.io/react/)
-* [Sass](http://sass-lang.com/) 
-* [Carbon](https://www.carbondesignsystem.com/)
-* [Create React App](https://github.com/facebook/create-react-app)
+This is the frontend to AssetLift application.
+Using React and Carbon Design System para desig.
 
 ### Deploying 
-
-After you have created a new git repo from this git template, remember to rename the project.
-Edit `package.json` and change the default name to the name you used to create the template.
 
 Make sure you are logged into the IBM Cloud using the IBM Cloud CLI and have access 
 to you development cluster. If you are using OpenShift make sure you have logged into OpenShift CLI on the command line.
