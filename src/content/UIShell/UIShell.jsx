@@ -16,7 +16,7 @@ import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
 import ErrorBoundary from "../../components/ErrorBoundary";
 import LandingPage from '../LandingPage';
 import NotFound from '../../components/NotFound';
-
+import Login from "../Login/Login";
 
 class UIShell extends React.Component {
 
@@ -41,8 +41,8 @@ class UIShell extends React.Component {
                                         onClick={onClickSideNavExpand}
                                         isActive={isSideNavExpanded}
                                     />
-                                    <HeaderName href="#" prefix="Carbon">
-                                        Template
+                                    <HeaderName href="#" prefix="Asset">
+                                        Lift
                                     </HeaderName>
                                     <HeaderNavigation aria-label="Carbon React App">
                                         <HeaderMenuItem href="#">Contributing</HeaderMenuItem>
@@ -78,14 +78,14 @@ class UIShell extends React.Component {
                                                     onClick={() => { this.setState({ activeItem: '/' }) }}>
                                                     Overview
                                                 </SideNavMenuItem>
-                                                <SideNavMenu renderIcon={Fade} title="Inventory" defaultExpanded>
-                                                    <SideNavMenuItem element={Link} to='/inventory/items'
-                                                        isActive={this.state.activeItem === '/inventory/items'}
-                                                        onClick={() => { this.setState({ activeItem: '/inventory/items' }) }}>
-                                                        Items
+                                                <SideNavMenu renderIcon={Fade} title="Applications" defaultExpanded>
+                                                    <SideNavMenuItem element={Link} to='/asset/items'
+                                                        isActive={this.state.activeItem === '/asset/items'}
+                                                        onClick={() => { this.setState({ activeItem: '/asset/items' }) }}>
+                                                        Asset
                                                     </SideNavMenuItem>
                                                 </SideNavMenu>
-                                                <SideNavMenu renderIcon={Fade} title="Management">
+                                                {/* <SideNavMenu renderIcon={Fade} title="Management">
                                                     <SideNavMenuItem href="#">
                                                         Link
                                                     </SideNavMenuItem>
@@ -105,7 +105,7 @@ class UIShell extends React.Component {
                                                     <SideNavMenuItem href="#">
                                                         Link
                                                     </SideNavMenuItem>
-                                                </SideNavMenu>
+                                                </SideNavMenu> */}
                                             </SideNavItems>
                                         </SideNav>
                                     </ErrorBoundary>
@@ -116,8 +116,9 @@ class UIShell extends React.Component {
                 </Theme>
                 <Content className='content'>
                     <Routes>
-                        <Route path="/" element={<LandingPage />} />
                         <Route path="*" element={<NotFound />} />
+                        <Route path="/" element={<LandingPage />} />            
+                        <Route path="/login" element={<Login />} />
                     </Routes>
                 </Content>
             </BrowserRouter>
