@@ -17,6 +17,7 @@ import ErrorBoundary from "../../components/ErrorBoundary";
 import LandingPage from '../LandingPage';
 import NotFound from '../../components/NotFound';
 import Login from "../Login/Login";
+import Users from "../Users/Users";
 
 class UIShell extends React.Component {
 
@@ -79,10 +80,15 @@ class UIShell extends React.Component {
                                                     Overview
                                                 </SideNavMenuItem>
                                                 <SideNavMenu renderIcon={Fade} title="Applications" defaultExpanded>
-                                                    <SideNavMenuItem element={Link} to='/asset/items'
-                                                        isActive={this.state.activeItem === '/asset/items'}
-                                                        onClick={() => { this.setState({ activeItem: '/asset/items' }) }}>
+                                                    <SideNavMenuItem element={Link} to='/asset'
+                                                        isActive={this.state.activeItem === '/asset'}
+                                                        onClick={() => { this.setState({ activeItem: '/asset' }) }}>
                                                         Asset
+                                                    </SideNavMenuItem>
+                                                    <SideNavMenuItem element={Link} to='/users'
+                                                        isActive={this.state.activeItem === '/users'}
+                                                        onClick={() => { this.setState({ activeItem: '/users' }) }}>
+                                                        Users
                                                     </SideNavMenuItem>
                                                 </SideNavMenu>
                                                 {/* <SideNavMenu renderIcon={Fade} title="Management">
@@ -117,7 +123,8 @@ class UIShell extends React.Component {
                 <Content className='content'>
                     <Routes>
                         <Route path="*" element={<NotFound />} />
-                        <Route path="/" element={<LandingPage />} />            
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/users" element={<Users />} />            
                         <Route path="/login" element={<Login />} />
                     </Routes>
                 </Content>

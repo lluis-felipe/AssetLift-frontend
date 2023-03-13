@@ -14,12 +14,7 @@ import axios from "axios";
 function login(username, password, setLoading, setLoginError) {
   setLoading(true);
   axios
-    .get("/assetlift/user", {
-      params: {
-        username: username,
-        password: password,
-      },
-    })
+    .get("/assetlift/user")
     .then((response) => {
       // Handle successful response
       console.log(response.data); // Exibe todos os usuários na resposta do servidor
