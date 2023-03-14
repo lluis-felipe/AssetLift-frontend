@@ -50,17 +50,11 @@ function Login() {
     setPassword(event.target.value);
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitting(true);
     setLoginError(false);
     login(username, password, setSubmitting, setLoginError);
-  };
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
   };
 
   return (
@@ -79,9 +73,6 @@ function Login() {
               labelText="Password"
               value={password}
               onChange={handlePasswordChange}
-              hidePassword={!showPassword}
-              onClickShowPassword={handleTogglePassword}
-              onClickHidePassword={handleTogglePassword}
             />
             <Button type="submit" disabled={submitting}>
               {submitting ? <InlineLoading description="Loading" /> : "Log in"}

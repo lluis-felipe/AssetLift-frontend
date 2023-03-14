@@ -1,2 +1,2 @@
-import LandingPage from './Users';
-export default LandingPage;
+import Users from './Users';
+export default Users;

@@ -18,6 +18,7 @@ import LandingPage from '../LandingPage';
 import NotFound from '../../components/NotFound';
 import Login from "../Login/Login";
 import Users from "../Users/Users";
+import UserForm from "../Forms/UserForm/UserForm";
 
 class UIShell extends React.Component {
 
@@ -126,6 +127,7 @@ class UIShell extends React.Component {
                         <Route path="/" element={<LandingPage />} />
                         <Route path="/users" element={<Users />} />            
                         <Route path="/login" element={<Login />} />
+                        <Route path="/add-user" element={<UserForm />} />
                     </Routes>
                 </Content>
             </BrowserRouter>
