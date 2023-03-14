@@ -129,6 +129,7 @@ const TableUsers = () => {
                     </TableToolbarAction>
                   </TableToolbarMenu>
                   <Button
+                    href="add-user"
                     tabIndex={batchActionProps.shouldShowBatchActions ? -1 : 0}
                     // onClick={action('Add new row')}
                     size="small"
