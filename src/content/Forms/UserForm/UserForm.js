@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState, Component, useEffect } from 'react';
 import axios from 'axios';
 import {
   Grid,
@@ -30,7 +30,8 @@ class UserForm extends Component {
       username: '',
       password: '',
       gender: 'radio-1',
-      isLoading: false
+      isLoading: false,
+      toUpdate: false,
     };
   }
 
@@ -45,20 +46,57 @@ class UserForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { username, password } = this.state;
+
+    const { username, password, toUpdate } = this.state;
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const userID = urlParams.get('userid')
+
     this.setState({ isLoading: true });
-    axios
-      .post('/assetlift/user', { username, password })
+
+    if (toUpdate) {
+      axios
+        .put(`/assetlift/user/${userID}`, { username, password })
+        .then((response) => {
+          console.log(response);
+          console.log('OK');
+          window.location.href = '/users';
+        })
+        .catch((error) => {
+          console.error(error);
+          this.setState({ isLoading: false });
+        });
+    } else {
+      axios
+        .post('/assetlift/user', { username, password })
+        .then((response) => {
+          console.log(response);
+          console.log('OK');
+          window.location.href = '/users';
+        })
+        .catch((error) => {
+          console.error(error);
+          this.setState({ isLoading: false });
+        });
+    }
+  };
+
+  componentDidMount() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const userID = urlParams.get('userid')
+
+    axios.get(`assetlift/user/${userID}`)
       .then((response) => {
-        console.log(response);
-        console.log('OK');
-        window.location.href = '/users';
+        this.setState({ username: response.data.username });
+        this.setState({ password: response.data.password });
+        this.setState({ toUpdate: true });
       })
       .catch((error) => {
         console.error(error);
-        this.setState({ isLoading: false });
       });
-  };
+  }
+
 
   render() {
     const { firstName, lastName, username, password, gender, isLoading } = this.state;

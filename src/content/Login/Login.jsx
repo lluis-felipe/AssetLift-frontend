@@ -1,92 +1,117 @@
-import React, { useState } from "react";
+import React, { Component } from 'react';
 import {
   Button,
-  Form,
-  TextInput,
-  InlineLoading,
   FormGroup,
+  Form,
   Stack,
+  TextInput,
   Theme,
   PasswordInput,
-} from "@carbon/react";
-import axios from "axios";
+  HeaderName,
+  Header,
+  InlineLoading
+} from '@carbon/react';
+import axios from 'axios';
+import UIShell from '../UIShell/UIShell';
 
-function login(username, password, setLoading, setLoginError) {
-  setLoading(true);
-  axios
-    .get("/assetlift/user")
-    .then((response) => {
-      // Handle successful response
-      console.log(response.data); // Exibe todos os usuários na resposta do servidor
-      const users = response.data;
-      // Verifica se os nomes de usuário e senhas correspondem
-      const foundUser = users.find((user) => user.username === username && user.password === password);
-      if (foundUser) {
-        console.log("Logged");
-      } else {
-        // Exibe uma mensagem de erro se as credenciais são inválidas
-        setLoading(false);
-        setLoginError(true);
-      }
-    })
-    .catch((error) => {
-      setLoading(false);
-      console.log(error);
-      setLoginError(true);
-    });
-}
 
-function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+// logoutfunction
+// handleLogout = () => {
+//   localStorage.removeItem('isLoggedIn');
+//   this.setState({ logged: false });
+// }
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+class Login extends Component {
+  state = {
+    username: '',
+    password: '',
+    loginError: '',
+    submitting: false,
+    logged: false
+  }
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+  handleInputChange = (event) => {
+    const { id, value } = event.target;
+    this.setState({ [id]: value });
+  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setSubmitting(true);
-    setLoginError(false);
-    login(username, password, setSubmitting, setLoginError);
-  };
+  componentDidMount() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn) {
+      this.setState({ logged: true });
+    }
+  }
+  
 
-  return (
-    <Theme theme="g10">
-      <Form onSubmit={handleSubmit}>
-        <FormGroup style={{ maxWidth: "400px" }}>
-          <Stack gap={7}>
-            <TextInput
-              id="username"
-              labelText="Username"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-            <PasswordInput
-              id="password"
-              labelText="Password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-            <Button type="submit" disabled={submitting}>
-              {submitting ? <InlineLoading description="Loading" /> : "Log in"}
-            </Button>
-            {loginError && (
-              <p style={{ color: "red", marginTop: "1rem" }}>
-                Incorrect username or password
-              </p>
-            )}
-          </Stack>
-        </FormGroup>
-      </Form>
-    </Theme>
-  );
-}
+  handleLogin = () => {
+    const { username, password } = this.state;
+    axios.get("/assetlift/user")
+      .then((response) => {
+        // handle successful login response here
+        this.setState({ submitting: true });
+        const users = response.data;
+        const foundUser = users.find((user) => user.username === username && user.password === password);
+        if (foundUser) {
+          this.setState({ logged: true });
+          localStorage.setItem('isLoggedIn', true);
+          console.log("Logged");
+        } else {
+          // Exibe uma mensagem de erro se as credenciais são inválidas
+          this.setState({ submitting: false });
+          this.setState({
+            loginError: <p style={{ color: "red" }}>
+              Incorrect username or password
+            </p>
+          });
+        }
+      })
+      .catch((error) => {
+        // handle login error here
+        console.log(error)
+      });
+  }
+
+  render() {
+    const { username, password, loginError, submitting, logged } = this.state;
+
+    return (
+      <Theme theme="g10">
+        <Header aria-label="IBM Platform Name">
+          <HeaderName href="#" prefix="Welcome to">
+            AssetLift
+          </HeaderName>
+        </Header>
+        {logged ? (
+          <UIShell />
+        ) : (
+          <FormGroup legendText="Login">
+            <Form className="login-form">
+              <Stack gap={7}>
+                <TextInput
+                  id="username"
+                  labelText="Username"
+                  required
+                  value={username}
+                  onChange={this.handleInputChange}
+                />
+                <PasswordInput
+                  id="password"
+                  labelText="Password"
+                  required
+                  value={password}
+                  onChange={this.handleInputChange}
+                />
+                <Button onClick={this.handleLogin}>
+                  {submitting ? <InlineLoading /> : "Log in"}
+                </Button>
+                {loginError && <p>{loginError}</p>}
+              </Stack>
+            </Form>
+          </FormGroup>
+        )}
+      </Theme>
+    );
+  }
+};
 
 export default Login;

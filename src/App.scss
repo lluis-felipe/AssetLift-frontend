@@ -2,6 +2,7 @@
 @use './components/Info/info';
 @use './content/UIShell/UIShell';
 @use './content/LandingPage/landing-page';
+@use './content/Login/login';
 
 .app .cds--content {
   margin-top: 3rem;

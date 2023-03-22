@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import UIShell from './content/UIShell/UIShell';
 import './App.scss';
+import Login from './content/Login/Login';
 
 class App extends Component {
   render() {
     return (
       <div className="app">
-        <UIShell />
+        <Login/>
       </div>
     );
   }
