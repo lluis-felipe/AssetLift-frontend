@@ -22,18 +22,15 @@ import {
 import { Save } from '@carbon/react/icons';
 
 class UserForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      username: '',
-      password: '',
-      gender: 'radio-1',
-      isLoading: false,
-      toUpdate: false,
-    };
-  }
+  state = {
+    firstName: '',
+    lastName: '',
+    username: '',
+    password: '',
+    gender: 'radio-1',
+    isLoading: false,
+    toUpdate: false,
+  };
 
   handleChange = (event) => {
     const { id, value } = event.target;
@@ -44,59 +41,55 @@ class UserForm extends Component {
     this.setState({ gender: value });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
 
     const { username, password, toUpdate } = this.state;
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const userID = urlParams.get('userid')
+    const userID = this.getUserID();
 
     this.setState({ isLoading: true });
 
-    if (toUpdate) {
-      axios
-        .put(`/assetlift/user/${userID}`, { username, password })
-        .then((response) => {
-          console.log(response);
-          console.log('OK');
-          window.location.href = '/users';
-        })
-        .catch((error) => {
-          console.error(error);
-          this.setState({ isLoading: false });
-        });
-    } else {
-      axios
-        .post('/assetlift/user', { username, password })
-        .then((response) => {
-          console.log(response);
-          console.log('OK');
-          window.location.href = '/users';
-        })
-        .catch((error) => {
-          console.error(error);
-          this.setState({ isLoading: false });
-        });
+    try {
+      if (toUpdate) {
+        await this.updateUser(userID, username, password);
+      } else {
+        await this.createUser(username, password);
+      }
+
+      console.log('OK');
+      window.location.href = '/users';
+    } catch (error) {
+      console.error(error);
+      alert('Failed to save user. Please try again.');
+      this.setState({ isLoading: false });
     }
   };
 
-  componentDidMount() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const userID = urlParams.get('userid')
-
-    axios.get(`assetlift/user/${userID}`)
-      .then((response) => {
-        this.setState({ username: response.data.username });
-        this.setState({ password: response.data.password });
-        this.setState({ toUpdate: true });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  async createUser(username, password) {
+    await axios.post('/assetlift/user', { username, password });
   }
 
+  async updateUser(userID, username, password) {
+    await axios.put(`/assetlift/user/${userID}`, { username, password });
+  }
+
+  getUserID() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get('userid');
+  }
+
+  async componentDidMount() {
+    const userID = this.getUserID();
+
+    try {
+      const response = await axios.get(`assetlift/user/${userID}`);
+      const { username, password } = response.data;
+      this.setState({ username, password, toUpdate: true });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   render() {
     const { firstName, lastName, username, password, gender, isLoading } = this.state;

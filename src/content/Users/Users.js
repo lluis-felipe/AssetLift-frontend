@@ -22,13 +22,14 @@ import {
   Link,
   TableToolbarMenu,
   Theme,
-  TableToolbarAction
+  TableToolbarAction,
+  Heading
 } from '@carbon/react';
-import { InfoSection, InfoCard } from '../../components/Info';
 import { Globe, Application, PersonFavorite, Add, TrashCan, Save, Download } from '@carbon/react/icons';
 import axios from 'axios';
 
 const headers = [
+  { key: 'id', header: 'Id' },
   { key: 'username', header: 'Username' },
   { key: 'password', header: 'Password' }
   // { key: 'role', header: 'Role' },
@@ -90,8 +91,8 @@ const TableUsers = () => {
 
           return (
             <TableContainer
-              title="DataTable"
-              description="With batch actions. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas accumsan mauris sed congue egestas. Integer varius mauris vel arcu pulvinar bibendum non sit amet ligula. Nullam ut nisi eu tellus aliquet vestibulum vel sit amet odio."
+              // title="DataTable"
+              // description="With batch actions. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas accumsan mauris sed congue egestas. Integer varius mauris vel arcu pulvinar bibendum non sit amet ligula. Nullam ut nisi eu tellus aliquet vestibulum vel sit amet odio."
               {...getTableContainerProps()}>
               <TableToolbar {...getToolbarProps()}>
                 <TableBatchActions {...batchActionProps}>
@@ -195,6 +196,7 @@ class Users extends Component {
       <Theme theme="g10">
         <Grid className="landing-page" fullWidth>
           <Column lg={16} md={8} sm={4} className="landing-page__r2">
+          <Heading>Users</Heading>
             <TableUsers />
           </Column>
         </Grid>
