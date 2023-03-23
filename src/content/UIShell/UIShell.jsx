@@ -135,7 +135,7 @@ class UIShell extends React.Component {
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<LandingPage />} />
             <Route path="/users" element={<Users />} />
-            <Route path="/add-user" element={<UserForm />} />
+            <Route path="/userform" element={<UserForm />} />
           </Routes>
         </Content>
       </BrowserRouter>

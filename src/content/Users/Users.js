@@ -16,9 +16,13 @@ import {
   TableHeader,
   TableBody,
   TableCell,
+  TableBatchAction,
+  TableBatchActions,
   DataTableSkeleton,
   Link,
-  Theme
+  TableToolbarMenu,
+  Theme,
+  TableToolbarAction
 } from '@carbon/react';
 import { InfoSection, InfoCard } from '../../components/Info';
 import { Globe, Application, PersonFavorite, Add, TrashCan, Save, Download } from '@carbon/react/icons';
@@ -86,41 +90,69 @@ const TableUsers = () => {
 
           return (
             <TableContainer
-              title="Users"
-              description={
-                <p>
-                  The main objective of user application management is to provide users with
-                  the necessary tools and resources to perform their job functions efficiently
-                  and effectively.
-                  <br />
-                  This may involve ensuring that user applications are available
-                  and accessible, providing training and support for users, and monitoring application
-                  usage to identify and address any issues or inefficiencies.
-                </p>
-              }
+              title="DataTable"
+              description="With batch actions. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas accumsan mauris sed congue egestas. Integer varius mauris vel arcu pulvinar bibendum non sit amet ligula. Nullam ut nisi eu tellus aliquet vestibulum vel sit amet odio."
               {...getTableContainerProps()}>
               <TableToolbar {...getToolbarProps()}>
+                <TableBatchActions {...batchActionProps}>
+                  <TableBatchAction
+                    tabIndex={batchActionProps.shouldShowBatchActions ? 0 : -1}
+                    renderIcon={TrashCan}
+                    onClick={() => deleteUser(selectedRows)}>
+                    Delete
+                  </TableBatchAction>
+                  {/* <TableBatchAction
+                    hasIconOnly
+                    iconDescription="Add"
+                    tooltipPosition="bottom"
+                    tabIndex={batchActionProps.shouldShowBatchActions ? 0 : -1}
+                    renderIcon={Add}
+                    onClick={() => deleteUser(selectedRows)}
+                    >
+                    Delete
+                  </TableBatchAction>
+                  <TableBatchAction
+                    hasIconOnly
+                    iconDescription="Save"
+                    tooltipPosition="bottom"
+                    tabIndex={batchActionProps.shouldShowBatchActions ? 0 : -1}
+                    renderIcon={Save}
+                    // onClick={batchActionClick(selectedRows)}
+                    >
+                    Save
+                  </TableBatchAction> */}
+                  <TableBatchAction
+                    tabIndex={batchActionProps.shouldShowBatchActions ? 0 : -1}
+                    renderIcon={Download}
+                    // onClick={batchActionClick(selectedRows)}
+                    >
+                    Download
+                  </TableBatchAction>
+                </TableBatchActions>
                 <TableToolbarContent
                   aria-hidden={batchActionProps.shouldShowBatchActions}>
                   <TableToolbarSearch
                     tabIndex={batchActionProps.shouldShowBatchActions ? -1 : 0}
                     onChange={onInputChange}
                   />
+                  <TableToolbarMenu
+                    tabIndex={batchActionProps.shouldShowBatchActions ? -1 : 0}>
+                    <TableToolbarAction onClick={() => alert('Alert 1')}>
+                      Action 1
+                    </TableToolbarAction>
+                    <TableToolbarAction onClick={() => alert('Alert 2')}>
+                      Action 2
+                    </TableToolbarAction>
+                    <TableToolbarAction onClick={() => alert('Alert 3')}>
+                      Action 3
+                    </TableToolbarAction>
+                  </TableToolbarMenu>
                   <Button
-                    tabIndex={batchActionProps.shouldShowBatchActions ? -1 : 0}
-                    renderIcon={TrashCan}
-                    iconDescription="Delete"
-                    onClick={() => deleteUser(selectedRows)}
-                    hasIconOnly
-                    size="small"
-                    kind="ghost">
-                    Delete
-                  </Button>
-                  <Button
-                    href="add-user"
+                    href="userform"
                     tabIndex={batchActionProps.shouldShowBatchActions ? -1 : 0}
                     size="small"
-                    kind="primary">
+                    kind="primary"
+                    >
                     Add new
                   </Button>
                 </TableToolbarContent>
@@ -142,7 +174,7 @@ const TableUsers = () => {
                       <TableSelectRow {...getSelectionProps({ row })} />
                       {row.cells.map((cell) => (
                         <TableCell key={cell.id}>
-                          <Link href={`/add-user?userid=${row.id}`}>{cell.value}</Link>
+                          <Link href={`/userform?userid=${row.id}`}>{cell.value}</Link>
                         </TableCell>
                       ))}
                     </TableRow>
