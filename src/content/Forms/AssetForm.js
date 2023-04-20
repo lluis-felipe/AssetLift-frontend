@@ -52,7 +52,7 @@ class AssetForm extends Component {
         console.log(event.target);
         const { value } = event.target;
         console.log(value)
-        this.setState({ acquisitiondate : value });
+        this.setState({ acquisitiondate: value });
     };
 
     handleSubmit = async (event) => {
@@ -170,15 +170,15 @@ class AssetForm extends Component {
                                                 <FormLabel>Manufacturer Information</FormLabel>
                                                 <Grid>
                                                     <Column lg={4} sm={4}>
-                                                    <DatePicker datePickerType="single" value={acquisitiondate}>
-                                                        <DatePickerInput
-                                                            id="acquisitiondate"
-                                                            labelText="Acquisition Date"
-                                                            placeholder="mm/dd/yyyy"
-                                                            onChange={this.handleAcquisitionDateChange}
+                                                        <DatePicker datePickerType="single" value={acquisitiondate}>
+                                                            <DatePickerInput
+                                                                id="acquisitiondate"
+                                                                labelText="Acquisition Date"
+                                                                placeholder="mm/dd/yyyy"
+                                                                onChange={this.handleAcquisitionDateChange}
                                                             // pattern="\d{1,2}\/\m{1,2}\/\y{4}"
-                                                        />
-                                                    </DatePicker>
+                                                            />
+                                                        </DatePicker>
                                                     </Column>
 
                                                     {/* <Column lg={4} sm={4}>

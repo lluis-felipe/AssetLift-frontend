@@ -82,7 +82,7 @@ class UserForm extends Component {
     try {
       const response = await axios.get(`assetlift/user/${userID}`);
       const { id, status, access, username, password } = response.data;
-      this.setState({id, status, access, username, password, toUpdate: true });
+      this.setState({ id, status, access, username, password, toUpdate: true });
     } catch (error) {
       console.error(error);
     }
@@ -147,7 +147,7 @@ class UserForm extends Component {
                         <Column lg={4} sm={4}>
                           <Stack gap={6}>
                             <TextInput id="firstName" labelText="First Name" />
-                            <TextInput id="lastName" labelText="Last Name"/>
+                            <TextInput id="lastName" labelText="Last Name" />
                             <TextInput id="email" labelText="Email" />
                             <TextInput id="phone" labelText="Phone" />
                           </Stack>
@@ -167,16 +167,16 @@ class UserForm extends Component {
                       </Grid>
                     </Stack>
                   </div>
+                  <Button
+                    type="submit"
+                    renderIcon={Save}
+                    iconDescription="Save"
+                    disabled={isLoading}
+                  >
+                    Save
+                  </Button>
                 </Stack>
 
-                <Button
-                  type="submit"
-                  renderIcon={Save}
-                  iconDescription="Save"
-                  disabled={isLoading}
-                >
-                  Save
-                </Button>
               </FormGroup>
             </Form>
             {isLoading && <Loading />}
