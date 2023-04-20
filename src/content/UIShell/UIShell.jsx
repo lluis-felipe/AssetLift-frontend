@@ -24,7 +24,9 @@ import ErrorBoundary from "../../components/ErrorBoundary";
 import LandingPage from "../LandingPage";
 import NotFound from "../../components/NotFound";
 import Users from "../Users/Users";
-import UserForm from "../Forms/UserForm/UserForm";
+import UserForm from "../Forms/UserForm";
+import Asset from "../Asset/Asset";
+import AssetForm from "../Forms/AssetForm";
 
 class UIShell extends React.Component {
   constructor(props) {
@@ -136,6 +138,8 @@ class UIShell extends React.Component {
             <Route path="/" element={<LandingPage />} />
             <Route path="/users" element={<Users />} />
             <Route path="/userform" element={<UserForm />} />
+            <Route path="/asset" element={<Asset />} />
+            <Route path="/assetform" element={<AssetForm />} />
           </Routes>
         </Content>
       </BrowserRouter>
