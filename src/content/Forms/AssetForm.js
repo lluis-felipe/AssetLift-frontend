@@ -48,13 +48,6 @@ class AssetForm extends Component {
         this.setState({ [id]: value });
     };
 
-    handleAcquisitionDateChange = (event) => {
-        console.log(event.target);
-        const { value } = event.target;
-        console.log(value)
-        this.setState({ acquisitiondate: value });
-    };
-
     handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -136,7 +129,7 @@ class AssetForm extends Component {
                                                     <SelectItem value="Active" text="Active" />
                                                     <SelectItem value="In repair" text="In repair" />
                                                     <SelectItem value="In storage" text="In storage" />
-                                                    <SelectItem value="In storage" text="In storage" />
+                                                    <SelectItem value="In maintenance" text="In maintenance" />
                                                     <SelectItem value="Disposed" text="Disposed" />
                                                 </Select>
 
@@ -175,7 +168,18 @@ class AssetForm extends Component {
                                                                 id="acquisitiondate"
                                                                 labelText="Acquisition Date"
                                                                 placeholder="mm/dd/yyyy"
-                                                                onChange={this.handleAcquisitionDateChange}
+                                                                onChange={this.handleChange}
+                                                            // pattern="\d{1,2}\/\m{1,2}\/\y{4}"
+                                                            />
+                                                        </DatePicker>
+                                                    </Column>
+                                                    <Column>
+                                                        <DatePicker datePickerType="single" value={disposaldate}>
+                                                            <DatePickerInput
+                                                                id="disposaldate"
+                                                                labelText="Disposal Date"
+                                                                placeholder="mm/dd/yyyy"
+                                                                onChange={this.handleChange}
                                                             // pattern="\d{1,2}\/\m{1,2}\/\y{4}"
                                                             />
                                                         </DatePicker>
