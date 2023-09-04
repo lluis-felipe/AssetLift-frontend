@@ -29,27 +29,27 @@ import axios from 'axios';
 
 const headers = [
   { key: 'id', header: 'Id' },
-  { key: 'username', header: 'Username' },
-  { key: 'access', header: 'Access' },
-  // { key: 'person.firstname', header: 'First Name' },
-  // { key: 'lastname', header: 'Last Name' },
   { key: 'status', header: 'Status' },
+  { key: 'associatedasset', header: 'Associated Asset' },
+  { key: 'createddate', header: 'Created Date' },
+  { key: 'duedate', header: 'Due Date' },
+  { key: 'worktype', header: 'Work Type' },
 ];
 
-const TableUsers = () => {
+const TableWorkorder = () => {
 
-  function deleteUser(selectedRows) {
+  function deleteWorkorder(selectedRows) {
     const idsToDelete = selectedRows.map((row) => row.id);
     idsToDelete.forEach((id) => {
-      axios.delete(`assetlift/user/${id}`)
+      axios.delete(`assetlift/workorder/${id}`)
         .then((response) => {
-          console.log(`Deleted user with id: ${id}`);
+          console.log(`Deleted workorder with id: ${id}`);
           setRows((prevRows) =>
             prevRows.filter((row) => row.id !== id)
           );
         })
         .catch((error) => {
-          console.error(`Error deleting user with id ${id}:`, error);
+          console.error(`Error deleting workorder with id ${id}:`, error);
         });
     });
   }
@@ -58,7 +58,7 @@ const TableUsers = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('assetlift/user');
+      const response = await axios.get('assetlift/workorder');
       console.log(response.data);
       setRows(response.data);
     } catch (error) {
@@ -71,7 +71,6 @@ const TableUsers = () => {
   }, []);
 
   return (
-    <div>
       <DataTable rows={rows} headers={headers}>
         {({
           rows,
@@ -98,7 +97,7 @@ const TableUsers = () => {
                   <TableBatchAction
                     tabIndex={batchActionProps.shouldShowBatchActions ? 0 : -1}
                     renderIcon={TrashCan}
-                    onClick={() => deleteUser(selectedRows)}>
+                    onClick={() => deleteWorkorder(selectedRows)}>
                     Delete
                   </TableBatchAction>
 
@@ -129,7 +128,7 @@ const TableUsers = () => {
                     </TableToolbarAction>
                   </TableToolbarMenu>
                   <Button
-                    href="userform"
+                    href="assetform"
                     tabIndex={batchActionProps.shouldShowBatchActions ? -1 : 0}
                     size="small"
                     kind="primary"
@@ -155,7 +154,7 @@ const TableUsers = () => {
                       <TableSelectRow {...getSelectionProps({ row })} />
                       {row.cells.map((cell) => (
                         <TableCell key={cell.id}>
-                          <Link href={`/userform?userid=${row.id}`}>{cell.value}</Link>
+                          <Link href={`/workorderform?workorderid=${row.id}`}>{cell.value}</Link>
                         </TableCell>
                       ))}
                     </TableRow>
@@ -166,18 +165,17 @@ const TableUsers = () => {
           );
         }}
       </DataTable>
-    </div>
   );
 };
 
-class Users extends Component {
+class Workorder extends Component {
   render() {
     return (
       <Theme theme="g10">
         <Grid className="landing-page" fullWidth>
           <Column lg={16} md={8} sm={4} className="landing-page__r2">
-            <Heading>Users</Heading>
-            <TableUsers />
+            <Heading>Workorder</Heading>
+            <TableWorkorder />
           </Column>
         </Grid>
       </Theme>
@@ -185,4 +183,4 @@ class Users extends Component {
   }
 }
 
-export default Users;
+export default Workorder;

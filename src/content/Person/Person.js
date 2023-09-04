@@ -18,38 +18,39 @@ import {
   TableCell,
   TableBatchAction,
   TableBatchActions,
+  DataTableSkeleton,
   Link,
   TableToolbarMenu,
   Theme,
   TableToolbarAction,
   Heading
 } from '@carbon/react';
-import { TrashCan, Download } from '@carbon/react/icons';
+import { Globe, Application, PersonFavorite, Add, TrashCan, Save, Download } from '@carbon/react/icons';
 import axios from 'axios';
 
 const headers = [
   { key: 'id', header: 'Id' },
-  { key: 'username', header: 'Username' },
-  { key: 'access', header: 'Access' },
-  // { key: 'person.firstname', header: 'First Name' },
-  // { key: 'lastname', header: 'Last Name' },
+  { key: 'person', header: 'Person' },
+  { key: 'firstname', header: 'First Name' },
+  { key: 'lastname', header: 'Last Name' },
+  { key: 'supervisor', header: 'Supervisor' },
   { key: 'status', header: 'Status' },
 ];
 
-const TableUsers = () => {
+const TablePerson = () => {
 
-  function deleteUser(selectedRows) {
+  function deletePerson(selectedRows) {
     const idsToDelete = selectedRows.map((row) => row.id);
     idsToDelete.forEach((id) => {
-      axios.delete(`assetlift/user/${id}`)
+      axios.delete(`assetlift/person/${id}`)
         .then((response) => {
-          console.log(`Deleted user with id: ${id}`);
+          console.log(`Deleted person with id: ${id}`);
           setRows((prevRows) =>
             prevRows.filter((row) => row.id !== id)
           );
         })
         .catch((error) => {
-          console.error(`Error deleting user with id ${id}:`, error);
+          console.error(`Error deleting person with id ${id}:`, error);
         });
     });
   }
@@ -58,7 +59,7 @@ const TableUsers = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('assetlift/user');
+      const response = await axios.get('assetlift/person');
       console.log(response.data);
       setRows(response.data);
     } catch (error) {
@@ -98,7 +99,7 @@ const TableUsers = () => {
                   <TableBatchAction
                     tabIndex={batchActionProps.shouldShowBatchActions ? 0 : -1}
                     renderIcon={TrashCan}
-                    onClick={() => deleteUser(selectedRows)}>
+                    onClick={() => deletePerson(selectedRows)}>
                     Delete
                   </TableBatchAction>
 
@@ -129,7 +130,7 @@ const TableUsers = () => {
                     </TableToolbarAction>
                   </TableToolbarMenu>
                   <Button
-                    href="userform"
+                    href="personform"
                     tabIndex={batchActionProps.shouldShowBatchActions ? -1 : 0}
                     size="small"
                     kind="primary"
@@ -155,7 +156,7 @@ const TableUsers = () => {
                       <TableSelectRow {...getSelectionProps({ row })} />
                       {row.cells.map((cell) => (
                         <TableCell key={cell.id}>
-                          <Link href={`/userform?userid=${row.id}`}>{cell.value}</Link>
+                          <Link href={`/personform?personid=${row.id}`}>{cell.value}</Link>
                         </TableCell>
                       ))}
                     </TableRow>
@@ -170,14 +171,14 @@ const TableUsers = () => {
   );
 };
 
-class Users extends Component {
+class Person extends Component {
   render() {
     return (
       <Theme theme="g10">
         <Grid className="landing-page" fullWidth>
           <Column lg={16} md={8} sm={4} className="landing-page__r2">
-            <Heading>Users</Heading>
-            <TableUsers />
+            <Heading>Person</Heading>
+            <TablePerson />
           </Column>
         </Grid>
       </Theme>
@@ -185,4 +186,4 @@ class Users extends Component {
   }
 }
 
-export default Users;
+export default Person;
