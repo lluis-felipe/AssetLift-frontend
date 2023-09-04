@@ -26,7 +26,7 @@ class LandingPage extends Component {
             </BreadcrumbItem>
           </Breadcrumb>
           <h1 className="landing-page__heading">
-            Design &amp; build with Carbon
+            Asset Lift
           </h1>
         </Column>
         <Column lg={16} md={8} sm={4} className="landing-page__r2">
@@ -44,13 +44,9 @@ class LandingPage extends Component {
                     lg={7}
                     sm={4}
                     className="landing-page__tab-content">
-                    <h2 className="landing-page__subheading">What is Carbon?</h2>
+                    <h2 className="landing-page__subheading">What is Asset Lift?</h2>
                     <p className="landing-page__p">
-                      Carbon is IBM’s open-source design system for digital
-                      products and experiences. With the IBM Design Language as
-                      its foundation, the system consists of working code, design
-                      tools and resources, human interface guidelines, and a
-                      vibrant community of contributors.
+                      Asset Lift is a software for asset management that helps organizations keep track of their physical assets such as equipment, machinery, and vehicles. It allows users to monitor asset utilization, maintenance schedules, and location tracking, which helps to optimize asset performance and reduce costs. The software is user-friendly and customizable, making it easy to adapt to the unique needs of different industries and businesses. With Asset Lift, organizations can improve their asset management practices and increase their operational efficiency.
                     </p>
                     <Button>Learn more</Button>
                   </Column>

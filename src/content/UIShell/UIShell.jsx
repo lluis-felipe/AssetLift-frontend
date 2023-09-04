@@ -27,6 +27,12 @@ import Users from "../Users/Users";
 import UserForm from "../Forms/UserForm";
 import Asset from "../Asset/Asset";
 import AssetForm from "../Forms/AssetForm";
+import Location from "../Location/Location";
+import LocationForm from "../Forms/LocationForm";
+import Person from "../Person/Person";
+import PersonForm from "../Forms/PersonForm";
+import Workorder from "../Workorder/Workorder";
+import WorkorderForm from "../Forms/WorkorderForm";
 
 class UIShell extends React.Component {
   constructor(props) {
@@ -123,6 +129,36 @@ class UIShell extends React.Component {
                           >
                             Users
                           </SideNavMenuItem>
+                          <SideNavMenuItem
+                            element={Link}
+                            to="/location"
+                            isActive={this.state.activeItem === "/location"}
+                            onClick={() => {
+                              this.setState({ activeItem: "/location" });
+                            }}
+                          >
+                            Location
+                          </SideNavMenuItem>
+                          <SideNavMenuItem
+                            element={Link}
+                            to="/person"
+                            isActive={this.state.activeItem === "/person"}
+                            onClick={() => {
+                              this.setState({ activeItem: "/person" });
+                            }}
+                          >
+                            Person
+                          </SideNavMenuItem>
+                          <SideNavMenuItem
+                            element={Link}
+                            to="/workorder"
+                            isActive={this.state.activeItem === "/workorder"}
+                            onClick={() => {
+                              this.setState({ activeItem: "/workorder" });
+                            }}
+                          >
+                            Workorder
+                          </SideNavMenuItem>
                         </SideNavMenu>
                       </SideNavItems>
                     </SideNav>
@@ -140,6 +176,12 @@ class UIShell extends React.Component {
             <Route path="/userform" element={<UserForm />} />
             <Route path="/asset" element={<Asset />} />
             <Route path="/assetform" element={<AssetForm />} />
+            <Route path="/location" element={<Location />} />
+            <Route path="/locationform" element={<LocationForm />} />
+            <Route path="/person" element={<Person />} />
+            <Route path="/personform" element={<PersonForm />} />
+            <Route path="/workorder" element={<Workorder />} />
+            <Route path="/workorderform" element={<WorkorderForm />} />
           </Routes>
         </Content>
       </BrowserRouter>

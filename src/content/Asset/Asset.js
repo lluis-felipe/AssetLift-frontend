@@ -32,7 +32,7 @@ const headers = [
   { key: 'id', header: 'Id' },
   { key: 'model', header: 'Model' },
   { key: 'location', header: 'Location' },
-  { key: 'responsable', header: 'Responsable' },
+  { key: 'type', header: 'Type' },
   { key: 'manufacturer', header: 'Manufacturer' },
   { key: 'status', header: 'Status' },
 ];
@@ -72,7 +72,6 @@ const TableAsset = () => {
   }, []);
 
   return (
-    <div>
       <DataTable rows={rows} headers={headers}>
         {({
           rows,
@@ -167,7 +166,6 @@ const TableAsset = () => {
           );
         }}
       </DataTable>
-    </div>
   );
 };
 
